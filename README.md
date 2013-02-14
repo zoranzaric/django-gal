@@ -20,8 +20,8 @@ Installation
     # run migrations
     $ python manage.py migrate gal
 
-    # create images directory
-    $ mkdir images
+    # create images and cache directory
+    $ mkdir images cache
 
     # copy images to images directory
     $ cp ~/some-image.jpg images
