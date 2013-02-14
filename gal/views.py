@@ -12,18 +12,38 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.core.servers.basehttp import FileWrapper
 from gal.models import Image
 from gal import settings
+from gal.helpers import *
 
 
 def index(request):
-    images = [image.filename for image in Image.objects.all()]
+    images = [image.filename for image in Image.objects.all().order_by('filename')]
     return render_to_response('index.html', {'title': 'index',
                                              'images': images})
 
 
 def image(request, filename):
     image = get_object_or_404(Image, filename=filename)
-    return render_to_response('image.html', {'title': filename,
-                                             'image': image.filename})
+
+    previous_image = get_previous_image(image)
+    if previous_image:
+        previous_image_filename = previous_image.filename
+    else:
+        previous_image_filename = ''
+
+    next_image = get_next_image(image)
+    if next_image:
+        next_image_filename = next_image.filename
+    else:
+        next_image_filename = ''
+
+    result = {
+        'title': filename,
+        'image': image.filename,
+        'previous_image': previous_image_filename,
+        'next_image': next_image_filename
+    }
+
+    return render_to_response('image.html', result)
 
 
 def view_image(request, filename):
