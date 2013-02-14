@@ -8,6 +8,8 @@ urlpatterns = patterns('',
     # url(r'^$', 'gal.views.home', name='home'),
     # url(r'^gal/', include('gal.foo.urls')),
 
+    url(r'^image/(.+)$', 'gal.views.view_image'),
+
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
