@@ -10,6 +10,7 @@ urlpatterns = patterns('',
 
     url(r'^$', 'gal.views.index'),
     url(r'^image/(.+)$', 'gal.views.view_image', name='view_image'),
+    url(r'^thumb/(.+)$', 'gal.views.view_thumbnail', name='view_thumbnail'),
 
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
