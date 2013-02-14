@@ -2,11 +2,13 @@
 
 {% block content %}
 {% if images|length > 0 %}
-<ul>
-{% for image in images %}
-  {# TODO use url template tag #}
-  <li><a href="/image/{{ image }}"><img src="/thumb/{{ image }}" /></a></li>
-{% endfor %}
-</ul>
+<div id="images">
+  <ul>
+  {% for image in images %}
+    {# TODO use url template tag #}
+    <li><a href="/image/{{ image }}"><img src="/thumb/{{ image }}" /></a></li>
+  {% endfor %}
+  </ul>
+</div>
 {% endif %}
 {% endblock %}
