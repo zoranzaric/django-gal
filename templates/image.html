@@ -10,8 +10,18 @@
   {% ifnotequal next_image "" %}
   <link rel="next" href="{% url gal.views.image next_image %}">
   {% endifnotequal %}
+
+  <style>
+    .image { border: 1px solid black; padding: 1em; margin: 2em; }
+    .caption { text-align: center; padding: 1em; }
+  </style>
 {% endblock %}
 
 {% block content %}
-<img src="{% url gal.views.view_image image %}" />
+<div class="image">
+  <img src="{% url gal.views.view_image image %}" />
+  <div class="caption">
+    {{ image }}
+  </div>
+</div>
 {% endblock %}
