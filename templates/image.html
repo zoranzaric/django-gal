@@ -4,11 +4,11 @@
 
 {% block head %}
   {% ifnotequal previous_image "" %}
-  <link rel="prev" href="{% url gal.views.image previous_image %}">
+  <link rel="prev" href="{% url gal.views.image gallery, previous_image %}">
   {% endifnotequal %}
 
   {% ifnotequal next_image "" %}
-  <link rel="next" href="{% url gal.views.image next_image %}">
+  <link rel="next" href="{% url gal.views.image gallery, next_image %}">
   {% endifnotequal %}
 
   <style>
@@ -19,16 +19,18 @@
 
 {% block content %}
 <div class="image">
-  <img src="{% url gal.views.view_image image %}" />
+  <img src="{% url gal.views.view_image gallery, image %}" />
   <div class="caption">
     {% ifnotequal previous_image "" %}
-      <a href="{% url gal.views.image previous_image %}">&lt;</a>
+      <a href="{% url gal.views.image gallery, previous_image %}">&lt;</a>
     {% endifnotequal %}
 
+    <a href="{% url gal.views.index gallery %}">{{ gallery }}</a>
+    /
     {{ image }}
 
     {% ifnotequal next_image "" %}
-      <a href="{% url gal.views.image next_image %}">&gt;</a>
+      <a href="{% url gal.views.image gallery, next_image %}">&gt;</a>
     {% endifnotequal %}
   </div>
 </div>

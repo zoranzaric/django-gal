@@ -4,6 +4,9 @@
 import os
 import imghdr
 
+from PIL import Image as PILImage
+from PIL.ExifTags import TAGS
+
 from gal import settings
 from django.core.management import setup_environ
 setup_environ(settings)
@@ -12,14 +15,27 @@ from gal.models import *
 
 
 if os.path.exists(settings.GAL_IMAGES_DIR):
-    for path in os.listdir(settings.GAL_IMAGES_DIR):
-        full_path = os.path.join(settings.GAL_IMAGES_DIR, path)
-        if not os.path.isfile(full_path) or not imghdr.what(full_path):
+    for gallery in os.listdir(settings.GAL_IMAGES_DIR):
+        full_gallery_path = os.path.join(settings.GAL_IMAGES_DIR, gallery)
+
+        if not os.path.isdir(full_gallery_path):
+            print full_gallery_path + " is not a dir"
             continue
-        try:
-            Image.objects.get(filename=path)
-        except Image.DoesNotExist:
-            image = Image(filename=path)
-            image.save()
-            print path
+
+        for image_path in os.listdir(os.path.join(settings.GAL_IMAGES_DIR, gallery)):
+            full_image_path = os.path.join(settings.GAL_IMAGES_DIR, gallery, image_path)
+            print full_image_path
+            if not os.path.isfile(full_image_path) or not imghdr.what(full_image_path):
+                continue
+            print "%s:" % image_path
+            info = PILImage.open(full_image_path)._getexif()
+            if info:
+                for k in info:
+                    print "  %s -> %s" % (TAGS.get(k), info[k])
+            try:
+                Image.objects.get(filename=image_path, gallery=gallery)
+            except Image.DoesNotExist:
+                image = Image(filename=image_path, gallery=gallery)
+                image.save()
+                print "%s/%s" % (gallery, image_path)
 

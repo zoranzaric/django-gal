@@ -10,8 +10,9 @@ from django.db import transaction
 from gal.models import *
 
 for image in Image.objects.all():
+    gallery = image.gallery
     filename = image.filename
-    if not os.path.exists(os.path.join(settings.GAL_IMAGES_DIR, filename)):
+    if not os.path.exists(os.path.join(settings.GAL_IMAGES_DIR, gallery, filename)):
         image.delete()
         print filename
 

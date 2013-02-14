@@ -1,16 +1,17 @@
 {% extends 'layout.html' %}
 
-{% block title %}Index{% endblock %}
+{% block title %}{{ gallery }}{% endblock %}
 
 {% block content %}
 {% if images|length > 0 %}
+<h1><a href="{% url gal.views.index gallery %}">{{ gallery }}</a></h1>
 <div id="images">
   <ul>
   {% for image in images %}
-    <li><a href="{% url gal.views.image image %}"><img src="{% url gal.views.view_thumbnail image %}" /></a></li>
+    <li><a href="{% url gal.views.image gallery, image %}"><img src="{% url gal.views.view_thumbnail gallery, image %}" /></a></li>
   {% endfor %}
   </ul>
 </div>
-<a href="{% url gal.views.download_all %}">Download as ZIP</a>
+<a href="{% url gal.views.download_all gallery %}">Download as ZIP</a>
 {% endif %}
 {% endblock %}
