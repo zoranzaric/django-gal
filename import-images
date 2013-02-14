@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import os
+
+from gal import settings
+from django.core.management import setup_environ
+setup_environ(settings)
+from django.db import transaction
+from gal.models import *
+
+
+if os.path.exists(settings.GAL_IMAGES_DIR):
+    for path in os.listdir(settings.GAL_IMAGES_DIR):
+        try:
+            Image.objects.get(filename=path)
+        except Image.DoesNotExist:
+            image = Image(filename=path)
+            image.save()
+            print path
+
