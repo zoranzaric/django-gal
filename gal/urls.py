@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
+    url(r'^$', 'gal.views.home'),
     url(r'^(?P<gallery>.+)/download$', 'gal.views.download_all'),
     url(r'^(?P<gallery>.+)/image/(?P<filename>.+)$', 'gal.views.view_image', name='view_image'),
     url(r'^(?P<gallery>.+)/thumb/(?P<filename>.+)$', 'gal.views.view_thumbnail', name='view_thumbnail'),

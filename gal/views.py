@@ -15,6 +15,10 @@ from gal import settings
 from gal.helpers import *
 
 
+def home(request):
+    galleries = [gallery for gallery in get_galleries()]
+    return render_to_response('home.html', {'galleries': galleries})
+
 def index(request, gallery):
     images = [image.filename for image in get_images_for_gallery(gallery)]
     return render_to_response('index.html', {'title': 'index',

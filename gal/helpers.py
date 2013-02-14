@@ -1,4 +1,12 @@
+import os
+
+from gal import settings
 from gal.models import Image
+
+def get_galleries():
+    for gallery in os.listdir(settings.GAL_IMAGES_DIR):
+        if os.path.isdir(os.path.join(settings.GAL_IMAGES_DIR, gallery)):
+            yield gallery
 
 def get_images_for_gallery(gallery):
     return Image.objects.filter(gallery__exact=gallery).order_by('filename')
