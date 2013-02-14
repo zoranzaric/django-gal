@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import imghdr
 
 from gal import settings
 from django.core.management import setup_environ
@@ -12,6 +13,9 @@ from gal.models import *
 
 if os.path.exists(settings.GAL_IMAGES_DIR):
     for path in os.listdir(settings.GAL_IMAGES_DIR):
+        full_path = os.path.join(settings.GAL_IMAGES_DIR, path)
+        if not os.path.isfile(full_path) or not imghdr.what(full_path):
+            continue
         try:
             Image.objects.get(filename=path)
         except Image.DoesNotExist:
