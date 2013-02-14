@@ -17,6 +17,12 @@ def index(request):
                                              'images': images})
 
 
+def image(request, filename):
+    image = get_object_or_404(Image, filename=filename)
+    return render_to_response('image.html', {'title': filename,
+                                             'image': image.filename})
+
+
 def view_image(request, filename):
     image = get_object_or_404(Image, filename=filename)
     path = os.path.join(settings.GAL_IMAGES_DIR, image.filename)
