@@ -88,12 +88,12 @@ def download_all(request, gallery):
     in_memory = StringIO()
     zip = ZipFile(in_memory, "a")
     for image in get_images_for_gallery(gallery):
-      path = os.path.join(settings.GAL_IMAGES_DIR, image.filename)
+      path = os.path.join(settings.GAL_IMAGES_DIR, gallery, image.filename)
       zip.write(path, image.filename)
     zip.close()
 
     response = HttpResponse(mimetype="application/zip")
-    response["Content-Disposition"] = "attachment; filename=all.zip"
+    response["Content-Disposition"] = "attachment; filename=%s.zip" % gallery
     response["Content-Length"] = in_memory.len
     in_memory.seek(0)
     response.write(in_memory.read())
