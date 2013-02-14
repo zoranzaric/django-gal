@@ -1,6 +1,9 @@
 import mimetypes
 import os
 
+from StringIO import StringIO
+from zipfile import ZipFile
+
 from PIL import Image as PILImage
 from PIL import ImageOps
 
@@ -41,5 +44,21 @@ def view_thumbnail(request, filename):
 
     response = HttpResponse(mimetype="image/png")
     thumb.save(response, "PNG")
+    return response
+
+
+def download_all(request):
+    in_memory = StringIO()
+    zip = ZipFile(in_memory, "a")
+    for image in Image.objects.all():
+      path = os.path.join(settings.GAL_IMAGES_DIR, image.filename)
+      zip.write(path, image.filename)
+    zip.close()
+
+    response = HttpResponse(mimetype="application/zip")
+    response["Content-Disposition"] = "attachment; filename=all.zip"
+    response["Content-Length"] = in_memory.len
+    in_memory.seek(0)
+    response.write(in_memory.read())
     return response
 
