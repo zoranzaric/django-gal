@@ -1,0 +1,17 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import os
+
+from gal import settings
+from django.core.management import setup_environ
+setup_environ(settings)
+from django.db import transaction
+from gal.models import *
+
+for image in Image.objects.all():
+    filename = image.filename
+    if not os.path.exists(os.path.join(settings.GAL_IMAGES_DIR, filename)):
+        image.delete()
+        print filename
+
