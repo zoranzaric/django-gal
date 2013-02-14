@@ -21,7 +21,15 @@
 <div class="image">
   <img src="{% url gal.views.view_image image %}" />
   <div class="caption">
+    {% ifnotequal previous_image "" %}
+      <a href="{% url gal.views.image previous_image %}">&lt;</a>
+    {% endifnotequal %}
+
     {{ image }}
+
+    {% ifnotequal next_image "" %}
+      <a href="{% url gal.views.image next_image %}">&gt;</a>
+    {% endifnotequal %}
   </div>
 </div>
 {% endblock %}
