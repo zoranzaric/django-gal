@@ -3,6 +3,5 @@
 {% block title %}{{ image }}{% endblock %}
 
 {% block content %}
-{# TODO use url template tag #}
-<img src="/image/{{ image }}" />
+<img src="{% url gal.views.view_image image %}" />
 {% endblock %}

@@ -7,8 +7,7 @@
 <div id="images">
   <ul>
   {% for image in images %}
-    {# TODO use url template tag #}
-    <li><a href="/{{ image }}"><img src="/thumb/{{ image }}" /></a></li>
+    <li><a href="{% url gal.views.image image %}"><img src="{% url gal.views.view_thumbnail image %}" /></a></li>
   {% endfor %}
   </ul>
 </div>
