@@ -120,6 +120,7 @@ INSTALLED_APPS = (
 )
 
 GAL_IMAGES_DIR = os.path.join(base_directory, '..', 'images')
+GAL_IMAGES_CACHE_DIR = os.path.join(base_directory, '..', 'cache')
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

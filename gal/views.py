@@ -56,11 +56,20 @@ def view_image(request, filename):
     return response
 
 def view_thumbnail(request, filename):
-    image = get_object_or_404(Image, filename=filename)
-    path = os.path.join(settings.GAL_IMAGES_DIR, image.filename)
-    pil_image = PILImage.open(path)
+    size = (150, 150)
 
-    thumb = ImageOps.fit(pil_image, (150, 150), PILImage.ANTIALIAS)
+    image = get_object_or_404(Image, filename=filename)
+
+    prefix = "thumb_%d_%d_" % size
+    cache_path = os.path.join(settings.GAL_IMAGES_CACHE_DIR, prefix + image.filename)
+    if not os.path.exists(cache_path):
+        path = os.path.join(settings.GAL_IMAGES_DIR, image.filename)
+        pil_image = PILImage.open(path)
+
+        thumb = ImageOps.fit(pil_image, size, PILImage.ANTIALIAS)
+        thumb.save(cache_path)
+    else:
+        thumb = PILImage.open(cache_path)
 
     response = HttpResponse(mimetype="image/png")
     thumb.save(response, "PNG")
