@@ -9,9 +9,9 @@ urlpatterns = patterns('',
     # url(r'^gal/', include('gal.foo.urls')),
 
     url(r'^$', 'gal.views.index'),
-    url(r'^image/(.+)$', 'gal.views.view_image', name='view_image'),
-    url(r'^thumb/(.+)$', 'gal.views.view_thumbnail', name='view_thumbnail'),
-    url(r'^(.+)$', 'gal.views.image', name='image'),
+    url(r'^image/(?P<filename>.+)$', 'gal.views.view_image', name='view_image'),
+    url(r'^thumb/(?P<filename>.+)$', 'gal.views.view_thumbnail', name='view_thumbnail'),
+    url(r'^(?P<filename>.+)$', 'gal.views.image', name='image'),
 
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
