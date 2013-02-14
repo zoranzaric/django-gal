@@ -1,4 +1,6 @@
 # Django settings for gal project.
+import os
+base_directory = os.path.dirname(__file__)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -120,6 +122,8 @@ INSTALLED_APPS = (
     'gal',
     'south',
 )
+
+GAL_IMAGES_DIR = os.path.join(base_directory, '..', 'images')
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
