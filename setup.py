@@ -17,6 +17,11 @@ setup(
     author = 'Zoran Zaric',
     author_email = 'zz@zoranzaric.de',
     scripts = ['gal/bin/import-images', 'gal/bin/gc-images'],
+    install_requires=[
+        'Django>=1.4',
+        'South>=0.7',
+        'PIL>=1.1',
+    ],
     classifiers = [
         'Environment :: Web Environment',
         'Framework :: Django',
