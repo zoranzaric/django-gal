@@ -1,6 +1,7 @@
 import os
 
-from gal import settings
+from django.conf import settings
+
 from gal.models import Image
 
 def get_galleries():

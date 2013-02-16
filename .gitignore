@@ -1,6 +1,4 @@
 *.pyc
 
-/dev.sqlite3
-
-/cache
-/images
+/dist
+/django_gal.egg-info

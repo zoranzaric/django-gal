@@ -10,8 +10,8 @@ from PIL import ImageOps
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.servers.basehttp import FileWrapper
+from django.conf import settings
 from gal.models import Image
-from gal import settings
 from gal.helpers import *
 
 

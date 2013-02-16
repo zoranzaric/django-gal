@@ -3,7 +3,7 @@
 
 import os
 
-from gal import settings
+from django.conf import settings
 from django.core.management import setup_environ
 setup_environ(settings)
 from django.db import transaction

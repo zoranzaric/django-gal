@@ -5,27 +5,23 @@ viewing images and rating them.
 Installation
 ------------
 
-    # create a virtualenv
-    $ virtualenv .virtualenv
+1. Add "gal" to your `INSTALLED_APPS` setting like this:
 
-    # activate the virtualenv
-    $ source .virtualenv/bin/activate
+        INSTALLED_APPS = (
+            ...
+            'gal',
+        )
 
-    # install dependencies
-    $ pip install -r requirements.txt
+2. Include the gal URLconf in your project `urls.py` like this:
 
-    # create the database and an admin user
-    $ python manage.py syncdb
+        url(r'^gal/', include('gal.urls')),
 
-    # run migrations
-    $ python manage.py migrate gal
+3. Run `python manage.py syncdb` to create the gal models.
 
-    # create images and cache directory
-    $ mkdir images cache
+4. Run `python manage.py migrate gal` to run the gal migrations.
 
-    # copy images to images directory
-    $ cp ~/some-image.jpg images
+5. Configure `GAL_IMAGES_DIR` and `GAL_IMAGES_CACHE_DIR` and create them.
 
-    # import images
-    $ ./import-images
+6. Copy directories, they represent galeries, of images to `gal/images` and run
+   `gal/import-images` to import them.
 
