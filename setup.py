@@ -16,6 +16,7 @@ setup(
     url = 'https://github.com/zoranzaric/django-gal',
     author = 'Zoran Zaric',
     author_email = 'zz@zoranzaric.de',
+    scripts = ['gal/bin/import-images', 'gal/bin/gc-images'],
     classifiers = [
         'Environment :: Web Environment',
         'Framework :: Django',
