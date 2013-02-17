@@ -15,6 +15,30 @@
     .image { border: 1px solid black; padding: 1em; margin: 2em; }
     .caption { text-align: center; padding: 1em; }
   </style>
+
+  <script src="/static/js/mousetrap.min.js"></script>
+  <script>
+    $(function () {
+       Mousetrap.bind('left', function () {
+          var prev = $('link[rel="prev"]').first();
+          if (prev) {
+            var url = $(prev).attr('href');
+            if (url) {
+              location.href=url;
+            }
+         };
+       });
+       Mousetrap.bind('right', function () {
+          var next = $('link[rel="next"]').first();
+          if (next) {
+            var url = $(next).attr('href');
+            if (url) {
+              location.href=url;
+            }
+         };
+       });
+    });
+  </script>
 {% endblock %}
 
 {% block content %}
