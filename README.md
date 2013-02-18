@@ -5,6 +5,8 @@ viewing images and rating them.
 Installation
 ------------
 
+0. Before installing the requirements install `python-dev` and `libjpeg-dev`.
+
 1. Add "gal" to your `INSTALLED_APPS` setting like this:
 
         INSTALLED_APPS = (
@@ -24,4 +26,8 @@ Installation
 
 6. Copy directories, they represent galeries, of images to `gal/images` and run
    `gal/import-images` to import them.
+
+
+gal assumes you have a `layout.html` template with `title`, `head`, and
+`content` block.
 
