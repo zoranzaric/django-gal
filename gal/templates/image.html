@@ -49,6 +49,16 @@
             }
          };
        });
+
+       var next = $('link[rel="next"]').first();
+       if (next) {
+         $('.image img').click(function (e) {
+           var url = $(next).attr('href');
+           if (url) {
+             location.href=url;
+           }
+         }).css('cursor', 'pointer');
+       }
     });
   </script>
 {% endblock %}
