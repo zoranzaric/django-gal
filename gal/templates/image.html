@@ -3,6 +3,8 @@
 {% block title %}{{ image }}{% endblock %}
 
 {% block head %}
+  <link rel="parent" href="{% url gal.views.index gallery %}">
+
   {% ifnotequal previous_image "" %}
   <link rel="prev" href="{% url gal.views.image gallery, previous_image %}">
   {% endifnotequal %}
@@ -33,6 +35,15 @@
           var next = $('link[rel="next"]').first();
           if (next) {
             var url = $(next).attr('href');
+            if (url) {
+              location.href=url;
+            }
+         };
+       });
+       Mousetrap.bind('g', function () {
+          var parent = $('link[rel="parent"]').first();
+          if (parent) {
+            var url = $(parent).attr('href');
             if (url) {
               location.href=url;
             }
