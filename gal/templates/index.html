@@ -8,7 +8,7 @@
 <div id="images">
   <ul>
   {% for image in images %}
-    <li><a href="{% url gal.views.image gallery, image %}"><img src="{% url gal.views.view_thumbnail gallery, image %}" /></a></li>
+    <li><a href="{% url gal.views.image gallery, image %}"><img src="{% url gal.views.view_thumbnail gallery, image %}" height="150" width="150" /></a></li>
   {% endfor %}
   </ul>
 </div>
