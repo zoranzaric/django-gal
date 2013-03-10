@@ -20,7 +20,7 @@ def home(request):
     return render_to_response('home.html', {'galleries': sorted(galleries)})
 
 def index(request, gallery):
-    images = [image.filename for image in get_images_for_gallery(gallery)]
+    images = get_images_for_gallery(gallery)
     return render_to_response('index.html', {'title': 'index',
                                              'gallery': gallery,
                                              'images': images})
@@ -44,7 +44,7 @@ def image(request, gallery, filename):
     result = {
         'gallery': gallery,
         'title': filename,
-        'image': image.filename,
+        'image': image,
         'previous_image': previous_image_filename,
         'next_image': next_image_filename
     }
@@ -99,3 +99,11 @@ def download_all(request, gallery):
     response.write(in_memory.read())
     return response
 
+def pick(request, gallery, filename):
+    image = get_object_or_404(Image, filename=filename)
+    if image.picked:
+        image.picked = False
+    else:
+        image.picked = True
+    image.save()
+    return HttpResponse()

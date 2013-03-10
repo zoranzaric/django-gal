@@ -15,6 +15,7 @@
 
   <style>
     .image { border: 1px solid black; padding: 1em; margin: 2em; text-align: center; }
+    .image.picked { background: #e0e0e0; }
     .image img { max-height: 75%; }
     .caption { text-align: center; padding: 1em; }
   </style>
@@ -49,6 +50,15 @@
             }
          };
        });
+       Mousetrap.bind('p', function () {
+           var url = $($('.image img').first()).attr('src').replace('/image/', '/pick/');
+           $.get(
+             url,
+             function(responseText){
+               $('.image').toggleClass('picked');
+             }
+           );
+       });
 
        var next = $('link[rel="next"]').first();
        if (next) {
@@ -64,8 +74,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="image">
-  <img src="{% url gal.views.view_image gallery, image %}" />
+<div class="image {% if image.picked %}picked{% endif %}">
+  <img src="{% url gal.views.view_image gallery, image.filename %}" />
   <div class="caption">
     {% ifnotequal previous_image "" %}
       <a href="{% url gal.views.image gallery, previous_image %}">&lt;</a>

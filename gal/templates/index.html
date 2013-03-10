@@ -2,13 +2,27 @@
 
 {% block title %}{{ gallery }}{% endblock %}
 
+{% block head %}
+  <style>
+    li.picked { background: #e0e0e0; }
+  </style>
+  <script src="/static/js/mousetrap.min.js"></script>
+  <script>
+    $(function () {
+       Mousetrap.bind('p', function () {
+         $('li:not(.picked)').fadeToggle();
+       });
+    });
+  </script>
+{% endblock %}
+
 {% block content %}
 {% if images|length > 0 %}
 <h1><a href="{% url gal.views.index gallery %}">{{ gallery }}</a></h1>
 <div id="images">
   <ul>
   {% for image in images %}
-    <li><a href="{% url gal.views.image gallery, image %}"><img src="{% url gal.views.view_thumbnail gallery, image %}" height="150" width="150" /></a></li>
+  <li class="{% if image.picked %}picked{% endif %}"><a href="{% url gal.views.image gallery, image.filename %}"><img src="{% url gal.views.view_thumbnail gallery, image.filename %}" height="150" width="150" /></a></li>
   {% endfor %}
   </ul>
 </div>
