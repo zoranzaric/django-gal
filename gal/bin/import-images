@@ -15,15 +15,18 @@ from gal.models import *
 
 
 if os.path.exists(settings.GAL_IMAGES_DIR):
-    for gallery in os.listdir(settings.GAL_IMAGES_DIR):
-        full_gallery_path = os.path.join(settings.GAL_IMAGES_DIR, gallery)
+    for gallery_name in os.listdir(settings.GAL_IMAGES_DIR):
+        full_gallery_path = os.path.join(settings.GAL_IMAGES_DIR, gallery_name)
 
         if not os.path.isdir(full_gallery_path):
             print full_gallery_path + " is not a dir"
             continue
 
-        for image_path in os.listdir(os.path.join(settings.GAL_IMAGES_DIR, gallery)):
-            full_image_path = os.path.join(settings.GAL_IMAGES_DIR, gallery, image_path)
+        for image_path in os.listdir(os.path.join(settings.GAL_IMAGES_DIR,
+                                                  gallery_name)):
+            full_image_path = os.path.join(settings.GAL_IMAGES_DIR,
+                                           gallery_name,
+                                           image_path)
             print full_image_path
             if not os.path.isfile(full_image_path) or not imghdr.what(full_image_path):
                 continue
@@ -32,6 +35,12 @@ if os.path.exists(settings.GAL_IMAGES_DIR):
             if info:
                 for k in info:
                     print "  %s -> %s" % (TAGS.get(k), info[k])
+            try:
+                gallery = Gallery.objects.get(name=gallery_name)
+            except Gallery.DoesNotExist:
+                gallery = Gallery(name=gallery_name)
+                gallery.save()
+
             try:
                 Image.objects.get(filename=image_path, gallery=gallery)
             except Image.DoesNotExist:

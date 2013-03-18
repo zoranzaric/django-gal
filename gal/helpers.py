@@ -2,15 +2,14 @@ import os
 
 from django.conf import settings
 
-from gal.models import Image
+from gal.models import Image, Gallery
 
 def get_galleries():
-    for gallery in os.listdir(settings.GAL_IMAGES_DIR):
-        if os.path.isdir(os.path.join(settings.GAL_IMAGES_DIR, gallery)):
-            yield gallery
+    return Gallery.objects.all().order_by('name')
 
-def get_images_for_gallery(gallery):
-    return Image.objects.filter(gallery__exact=gallery).order_by('filename')
+def get_images_for_gallery(gallery_name):
+    gallery = Gallery.objects.get(name=gallery_name)
+    return gallery.image_set.all().order_by('filename')
 
 def get_previous_image(gallery, image):
     images = get_images_for_gallery(gallery)

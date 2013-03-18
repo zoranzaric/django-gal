@@ -83,7 +83,7 @@
 
     <a href="{% url gal.views.index gallery %}">{{ gallery }}</a>
     /
-    {{ image }}
+    {{ image.filename }}
 
     {% ifnotequal next_image "" %}
       <a href="{% url gal.views.image gallery, next_image %}">&gt;</a>

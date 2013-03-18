@@ -16,3 +16,8 @@ for image in Image.objects.all():
         image.delete()
         print filename
 
+for gallery in Gallery.objects.all():
+    if len(gallery.image_set.all()) == 0:
+        print gallery
+        gallery.delete()
+
