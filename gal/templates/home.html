@@ -7,7 +7,7 @@
   <h1>Galleries</h1>
   <ul>
   {% for gallery in galleries %}
-    <li><a href="{% url gal.views.index gallery %}">{{ gallery }}</a></li>
+    <li><a href="{% url "gal.views.index" gallery %}">{{ gallery }}</a></li>
   {% endfor %}
   </ul>
 </div>

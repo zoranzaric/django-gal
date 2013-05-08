@@ -18,14 +18,14 @@
 
 {% block content %}
 {% if images|length > 0 %}
-<h1><a href="{% url gal.views.index gallery %}">{{ gallery }}</a></h1>
+<h1><a href="{% url "gal.views.index" gallery %}">{{ gallery }}</a></h1>
 <div id="images">
   <ul>
   {% for image in images %}
-  <li class="{% if image.picked %}picked{% endif %}"><a href="{% url gal.views.image gallery, image.filename %}"><img src="{% url gal.views.view_thumbnail gallery, image.filename %}" height="150" width="150" /></a></li>
+  <li class="{% if image.picked %}picked{% endif %}"><a href="{% url "gal.views.image" gallery image.filename %}"><img src="{% url "gal.views.view_thumbnail" gallery image.filename %}" height="150" width="150" /></a></li>
   {% endfor %}
   </ul>
 </div>
-<a href="{% url gal.views.download_all gallery %}">Download as ZIP</a>
+<a href="{% url "gal.views.download_all" gallery %}">Download as ZIP</a>
 {% endif %}
 {% endblock %}

@@ -3,14 +3,14 @@
 {% block title %}{{ image }}{% endblock %}
 
 {% block head %}
-  <link rel="parent" href="{% url gal.views.index gallery %}">
+  <link rel="parent" href="{% url "gal.views.index" gallery %}">
 
   {% ifnotequal previous_image "" %}
-  <link rel="prev" href="{% url gal.views.image gallery, previous_image %}">
+  <link rel="prev" href="{% url "gal.views.image" gallery previous_image %}">
   {% endifnotequal %}
 
   {% ifnotequal next_image "" %}
-  <link rel="next" href="{% url gal.views.image gallery, next_image %}">
+  <link rel="next" href="{% url "gal.views.image" gallery next_image %}">
   {% endifnotequal %}
 
   <style>
@@ -75,18 +75,18 @@
 
 {% block content %}
 <div class="image {% if image.picked %}picked{% endif %}">
-  <img src="{% url gal.views.view_image gallery, image.filename %}" />
+  <img src="{% url "gal.views.view_image" gallery image.filename %}" />
   <div class="caption">
     {% ifnotequal previous_image "" %}
-      <a href="{% url gal.views.image gallery, previous_image %}">&lt;</a>
+      <a href="{% url "gal.views.image" gallery previous_image %}">&lt;</a>
     {% endifnotequal %}
 
-    <a href="{% url gal.views.index gallery %}">{{ gallery }}</a>
+    <a href="{% url "gal.views.index" gallery %}">{{ gallery }}</a>
     /
     {{ image.filename }}
 
     {% ifnotequal next_image "" %}
-      <a href="{% url gal.views.image gallery, next_image %}">&gt;</a>
+      <a href="{% url "gal.views.image" gallery next_image %}">&gt;</a>
     {% endifnotequal %}
   </div>
 </div>
