@@ -17,7 +17,7 @@ from gal.helpers import *
 
 def home(request):
     galleries = [gallery for gallery in get_galleries()]
-    return render_to_response('home.html', {'galleries': sorted(galleries)})
+    return render_to_response('home.html', {'galleries': galleries})
 
 def index(request, gallery):
     images = get_images_for_gallery(gallery)
