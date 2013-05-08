@@ -11,7 +11,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.servers.basehttp import FileWrapper
 from django.conf import settings
-from gal.models import Image
+from gal.models import Image, Gallery
 from gal.helpers import *
 
 
@@ -27,7 +27,8 @@ def index(request, gallery):
 
 
 def image(request, gallery, filename):
-    image = get_object_or_404(Image, filename=filename)
+    gal = get_object_or_404(Gallery, name=gallery)
+    image = get_object_or_404(Image, filename=filename, gallery=gal)
 
     previous_image = get_previous_image(gallery, image)
     if previous_image:
@@ -53,7 +54,8 @@ def image(request, gallery, filename):
 
 
 def view_image(request, gallery, filename):
-    image = get_object_or_404(Image, filename=filename)
+    gal = get_object_or_404(Gallery, name=gallery)
+    image = get_object_or_404(Image, filename=filename, gallery=gal)
     path = os.path.join(settings.GAL_IMAGES_DIR, gallery, image.filename)
     wrapper = FileWrapper(file(path))
     response = HttpResponse(wrapper,
@@ -64,7 +66,8 @@ def view_image(request, gallery, filename):
 def view_thumbnail(request, gallery, filename):
     size = (150, 150)
 
-    image = get_object_or_404(Image, filename=filename)
+    gal = get_object_or_404(Gallery, name=gallery)
+    image = get_object_or_404(Image, filename=filename, gallery=gal)
 
     prefix = "thumb_%d_%d_" % size
     if not os.path.exists(os.path.join(settings.GAL_IMAGES_CACHE_DIR, gallery)):
